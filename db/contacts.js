@@ -1,33 +1,33 @@
-const fs = require("fs/promises");
-const path = require("path");
+import fs from "fs/promises";
+import path from "path";
+import { nanoid } from "nanoid";
 
-const { nanoid } = require("nanoid");
+const contactsPath = path.resolve("db", "contacts.json");
 
-const contactsPath = path.join(__dirname, "./contacts.json");
-
-const getAllContacts = async () => {
+export const getAllContacts = async () => {
   const contacts = await fs.readFile(contactsPath);
   return JSON.parse(contacts);
 };
 
-const getContactByID = async (id) => {
+export const getContactByID = async (id) => {
   const contacts = await getAllContacts();
   const contact = contacts.find((contact) => contact.id === id);
   return contact ?? null;
 };
 
-const addContact = async (data) => {
+export const addContact = async (data) => {
   const contacts = await getAllContacts();
   const newContact = { ...data, id: nanoid() };
   contacts.push(newContact);
   fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
+  return newContact;
 };
 
-const removeContact = async (id) => {
+export const removeContact = async (id) => {
   const contacts = await getAllContacts();
   const idx = contacts.findIndex((contact) => contact.id === id);
 
-  if (!!~idx) {
+  if (idx === -1) {
     return null;
   }
 
@@ -38,13 +38,14 @@ const removeContact = async (id) => {
   return removedContact;
 };
 
-const updateContact = async (id, data) => {
+export const updateContactByID = async (id, data) => {
+  data.phone = data.phone.toString();
   const contacts = await getAllContacts();
   const idx = contacts.findIndex((contact) => contact.id === id);
-  if (!!~idx) {
+  if (idx === -1) {
     return null;
   }
-  contacts[idx] = { ...contacts[idx], data };
+  contacts[idx] = { ...contacts[idx], ...data };
   fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
   return contacts[idx];
 };
