@@ -9,7 +9,7 @@ GET
 ADD
 ![image](https://github.com/taranlizz/goit-node-hw-01/assets/122751176/1485b4af-cc6e-4d64-af2f-81b3f1cd1eae)
 
-REMOVE
+REMOVE\n
 ![image](https://github.com/taranlizz/goit-node-hw-01/assets/122751176/da42fc05-09b7-41d4-84aa-5543f7d4b346)
 
 
