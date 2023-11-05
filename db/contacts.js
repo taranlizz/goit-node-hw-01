@@ -39,7 +39,6 @@ export const removeContact = async (id) => {
 };
 
 export const updateContactByID = async (id, data) => {
-  data.phone = data.phone.toString();
   const contacts = await getAllContacts();
   const idx = contacts.findIndex((contact) => contact.id === id);
   if (idx === -1) {
