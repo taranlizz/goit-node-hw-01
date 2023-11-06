@@ -4,7 +4,7 @@ import {
   getContactByID,
   removeContact,
   updateContactByID,
-} from "./db/contacts.js";
+} from "./contacts.js";
 import { program } from "commander";
 
 program
